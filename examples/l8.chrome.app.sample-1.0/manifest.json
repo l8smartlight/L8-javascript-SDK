@@ -1,0 +1,14 @@
+{
+  "name": "L8 SmartLight Dev App",
+  "description": "L8 SmartLight sample Chrome App for developers",
+  "version": "1.0",
+  "icons": { "16": "img/L8_icon_grid_16.png",
+           "48": "img/L8_icon_grid_48.png",
+          "128": "img/L8_icon_grid_128.png" },
+  "app": {
+		"background": {
+		  "scripts": ["background.js"]
+		}
+	},
+	"permissions": ["serial"]
+}

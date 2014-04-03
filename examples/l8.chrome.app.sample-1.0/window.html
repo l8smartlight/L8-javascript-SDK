@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+	<script type="text/javascript" src="js/jquery-2.1.0.js" ></script>	
+	
+	<script type="text/javascript" src="js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js" ></script>
+	<script type="text/javascript" src="js/Delta/js/modernizr-2.0.6.min.js" ></script>
+	<link rel="stylesheet" href="js/Delta/theme/jquery-ui.css" />
+	
+	
+	<script type="text/javascript" src="js/serialport.class-1.0.js"></script>
+	<script type="text/javascript" src="js/l8.slcp.class-1.0.js"></script>
+	<script type="text/javascript" src="js/l8.app.js"></script>
+ 
+  
+  	<link rel="stylesheet" href="css/style.css" />
+	
+  </head>
+  <body>
+	
+	<img id="logo" src="img/L8_smartlight_logo.png" >
+	
+    <div id="tabs_app" class="tabs">
+	  <ul>
+		<li><a href="#tabs-1">Main</a></li>
+		<li><a href="#tabs-2">Sensors</a></li>
+		<li><a href="#tabs-3">Console</a></li>
+		<li><a href="#tabs-4">About</a></li>
+	  </ul>
+	  <div id="tabs-1">
+			<div class="panel">
+				<b>SuperLED:</b>
+				<input id="btn_led_red" type="button" value="Red">
+				<input id="btn_led_blue" type="button" value="Blue">
+				<input id="btn_led_green" type="button" value="Green">
+				<input id="btn_led_off" type="button" value="Clear">
+				<br>
+				<b>Matrix:</b>
+				<input id="btn_matrix_white" type="button" value="White">
+				<input id="btn_matrix_clear" type="button" value="Clear">
+				<input id="btn_matrix_fadeout" type="button" value="Fade out">
+			</div>
+			
+			<div class="panel">
+				<b>Apps:</b>
+				<input id="btn_app_dice" type="button" value="Dice">
+				<input id="btn_app_aurora" type="button" value="Light Aurora">
+				<input id="btn_app_galaxy" type="button" value="Light Galaxy">
+				<input id="btn_app_tropical" type="button" value="Light Tropical">
+				<input id="btn_app_stop" type="button" value="Stop">
+			</div>
+			
+			<div class="panel">
+			<input id="btn_query_battery" type="button" value="Get Battery"> Battery: <span id="span_battery"></span> <span id="span_charge"></span>
+			</div>
+
+			<br><br>
+			
+			<div class="panel">
+				Connection:<br>
+				<select id="serial_ports"></select> <input id="btn_serial_connect" type="button" value="Connect"> <span id="serial_status"></span>
+				
+			</div>
+	  </div>
+	  
+	  <div id="tabs-2">
+		<div class="panel">
+			<input id="btn_sensors_start" type="button" value="Start">
+			<input id="btn_sensors_stop" type="button" value="Stop">
+			<select id="sel_sensors_delay" >
+				<option value="300">300</option><option value="400">400</option><option selected value="500">500</option><option value="700">700</option><option value="1000">1000</option>
+			</select> ms
+		</div>
+		
+		<div class="panel">
+			<b>Ambient:</b> <span id="span_sensors_ambient" class="sensor_span"></span> <br><br>
+			<b>Proximity:</b> <span id="span_sensors_prox" class="sensor_span"></span> <br><br>
+			<b>Acc:</b> <span id="span_sensors_acc_x" class="sensor_span"></span> <span id="span_sensors_acc_y" class="sensor_span"></span> <span id="span_sensors_acc_z" class="sensor_span"></span> <br><br>
+			<b>Noise:</b> <span id="span_sensors_noise" class="sensor_span"></span> <br><br>
+			<b>Temp:</b> <span id="span_sensors_temp_c" class="sensor_span"></span> <span id="span_sensors_temp_f" class="sensor_span"></span> <br><br>
+			<b>Temp MCU:</b> <span id="span_sensors_tempmcu_c" class="sensor_span"></span> <span id="span_sensors_tempmcu_f" class="sensor_span"></span>
+		</div>
+	  </div>
+	  
+	  <div id="tabs-3">
+		<div class="panel" style="height:250px;">
+			<div style="width:520px; float:left;">
+				<textarea id="txtarea_cmd_console" style="width:500px; height:210px; resize:none;"></textarea>
+				<input id="txt_command" type="text" style="width:420px;" /> <input id="btn_cmd_clear" type="button" value="X"> <input id="btn_cmd_send" type="button" value="Send">
+			</div>
+			<div style="width:290px; float:right;">
+				Send commands to the L8 writing hex strings.
+				<br><br>
+				For example:<br>
+				 - "4B-00-00-0F" To set SuperLED in red color<br>
+				 - "48" To query the tempearture<br>
+				 - "81-02-01-30-00" To run the Multicolor Light App<br>
+				 - "82" To stop an App
+				<br><br><br>
+				* Write just the command Payload, the SDK function will add the header (AA55), the length and the CRC
+				<br><br><br>
+				Visit <a target="_blank" href="http://www.l8smartlight.com/dev/slcp/1.0/">www.l8smartlight.com/dev/slcp/1.0/</a> for commands documentation
+			</div>
+		</div>
+		<br>
+		<div class="panel">
+			** Open the Chrome Console for communication traces.
+			<br><br>
+			<input type="checkbox" id="chckbox_traces_serial" style="margin-left:20px;" />Serial port traces
+			<input type="checkbox" checked id="chckbox_traces_slcp" style="margin-left:20px;" />SLCP traces
+			<input type="checkbox" id="chckbox_traces_app" style="margin-left:20px;" />App traces
+		</div>
+	  </div>
+	  
+	   <div id="tabs-4">
+			<img id="about_icon" src="img/L8_icon_grid_128.png" >
+			<div id="about_info">
+				<h3>L8 Sample Chrome App</h3>
+				Version 1.0
+				<br>
+				<br>
+				&copy 2014 SmartLight Inc.
+			</div>
+	  </div>
+	</div>	
+	
+	
+	<div id="dialog_not_connected" title="L8 is not connected" style="display:none;">
+	<p>Connection to the L8 is not stablished</p>
+	<p>Go to the Main tab, select the L8 device, and click on Connect button</p>
+	</div>
+
+
+  </body>
+</html>
