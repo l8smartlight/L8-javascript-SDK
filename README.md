@@ -54,7 +54,7 @@ Now, instantiate the SLCP class, where:
 
 After this, you can, for example, get the system serial ports to select the one created by the L8 driver.
 In the example this is done in the function:
-`fillPorts()` in l8.app.js line 159
+`fillPorts()` in **l8.app.js line 159**
 
 
 It uses the variable: L8_serialPort.systemPorts which is automatially filled when you create the Serial Port.
@@ -73,7 +73,7 @@ and
 L8_serialPort.disconnect();
 ```
 
-See the example file: l8.app.js line 64
+See the example file: **l8.app.js line 64**
 
 
 When the connection is stablished your **serial_connect_cb** callback will fire, and if there were no errors (result will be true) you can start the SLCP class:
@@ -90,10 +90,60 @@ This is needed to **receive commands from the L8** as this starts the reception 
 
 Once the serial port is open, and SLCP class is started, you are now ready to communicate with the L8.
 
+Sending commands is very easy, as you only need to call the SLCP class methods available.
+
+For example, call:
+
+```javascript
+L8_SLCP.QueryL8Temp();
+```
+To read the L8 temperature sensor, or:
+
+```javascript
+L8_SLCP.QueryL8Acc();
+```
+To read the L8 accelerometer values, or:
+
+```javascript
+L8_SLCP.QueryL8Voltage();
+```
+to get the battery status.
+
+
+The response to all these queries is an asyncronous response, that will fire the OnSLCPommand function explained in the next section.
 
 
 
 ### Receiving commands from the L8
+
+Every command that arrives from the L8 will fire the **OnCommand** event handler that you passed in the SLCP class initialization.
+
+In our sample Chrome app, this method is **OnSLCPommand(commnad)** and you can find it in **l8.app.js line 105**
+
+Every command is, at this point, a jSON object, that includes two members:
+- **id** The Command Id. It's an integer number. You can find the ennumaration of commands SLCP_COMMAND in the slcp.class-1.0.js
+- **info** The command info. This member's structure varies depending on the command.
+
+For example, an accelerometer response will be like this one:
+
+Command Id: CMD_L8_ACC_RESPONSE = 0x4D = 77
+
+```javascript
+command: {
+              "id" : 77,
+              "info": {
+                        "x" : 0.5625,
+                        "y" : -0.09375,
+                        "z" : 0.375},
+                        "tilt_status" : {
+                              "lying" : 1,
+                              "orientation" : 5,
+                              "tap" : 1,
+                              "shake" : 1 
+                            }
+                      }
+          }
+```
 
 
 
