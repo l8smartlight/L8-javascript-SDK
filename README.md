@@ -121,7 +121,7 @@ Every command that arrives from the L8 will fire the **OnCommand** event handler
 In our sample Chrome app, this method is **OnSLCPommand(commnad)** and you can find it in **l8.app.js line 105**
 
 Every command is, at this point, a jSON object, that includes two members:
-- **id** The Command Id. It's an integer number. You can find the ennumaration of commands SLCP_COMMAND in the slcp.class-1.0.js
+- **id** The Command Id. It's an integer number. You can find the ennumaration of commands (SLCP_COMMAND) in the file  slcp.class-1.0.js
 - **info** The command info. This member's structure varies depending on the command.
 
 For example, an accelerometer response will be like this one:
