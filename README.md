@@ -136,13 +136,41 @@ command: {
                         "y" : -0.09375,
                         "z" : 0.375},
                         "tilt_status" : {
-                              "lying" : 1,
-                              "orientation" : 5,
-                              "tap" : 1,
-                              "shake" : 1 
-                            }
+                                          "lying" : 1,
+                                          "orientation" : 5,
+                                          "tap" : 1,
+                                          "shake" : 1 
+                                        }
                       }
           }
+```
+
+Or, a battery info response, will be like this one:
+
+Command Id: CMD_L8_VOLTAGE_RESPONSE = 0x47 = 71
+
+```javascript
+command: {
+              "id" : 71,
+              "info": {
+                            "voltage" : 4018,
+                            "percent" : 90
+                       }
+          }
+```
+
+Or, a temperature response:
+
+Command Id: CMD_L8_TEMP_RESPONSE = 0x49 = 73
+
+```javascript
+command: {
+              "id" : 73,
+              "info" : {
+                            "temp_c" : 23.8,
+                            "temp_f" : 74.84
+                        }
+}
 ```
 
 
