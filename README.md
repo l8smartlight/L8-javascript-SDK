@@ -76,7 +76,24 @@ L8_serialPort.disconnect();
 See the example file: l8.app.js line 64
 
 
+When the connection is stablished your **serial_connect_cb** callback will fire, and if there were no errors (result will be true) you can start the SLCP class:
 
+```javascript
+L8_SLCP.Start();
+```
+
+This is needed to **receive commands from the L8** as this starts the reception thread.
+
+
+
+### Sending commands to the L8
+
+Once the serial port is open, and SLCP class is started, you are now ready to communicate with the L8.
+
+
+
+
+### Receiving commands from the L8
 
 
 
