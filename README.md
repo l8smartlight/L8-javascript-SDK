@@ -20,7 +20,7 @@ I don't really like this mechanism as this way, the serial port class is not com
 
 ## SLCP Class (slcp.class-1.0.js)
 
-This is main SDK class, which exports the methods needed to communicate to the L8 and to parse the data received from it.
+This is the main SDK class, which exports the methods needed to communicate to the L8 and to parse the data received from it.
 
 
 ## Usage
